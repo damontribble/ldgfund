@@ -1,0 +1,88 @@
+// Mixin for box-sizing
+// ====================================================================
+
+@mixin bs($bs-type: $defined-bs-type) {
+	-webkit-box-sizing: $bs-type;
+	-moz-box-sizing: $bs-type;
+	box-sizing: $bs-type;
+}
+
+
+// Media Query mixin
+// ====================================================================
+
+@mixin mq($canvas) {
+  @if $canvas == xs {
+    @media only screen and (max-width: $xs-breakpoint) { @content; }
+  }
+  @if $canvas == gt-xs {
+    @media only screen and (min-width: $xs-breakpoint) { @content; }
+  }
+  @if $canvas == gt-s {
+    @media only screen and (min-width: $s-breakpoint) { @content; }
+  }
+  @if $canvas == s {
+    @media only screen and (min-width: $s-breakpoint) and (max-width: $m-breakpoint) { @content; }
+  }
+  @if $canvas == gt-m {
+    @media only screen and (min-width: $m-breakpoint) { @content; }
+  }
+  @if $canvas == m {
+    @media only screen and (min-width: $m-breakpoint) and (max-width: $l-breakpoint) { @content; }
+  }
+  @if $canvas == gt-l {
+    @media only screen and (min-width: $l-breakpoint) { @content; }
+  }
+  @if $canvas == l {
+    @media only screen and (min-width: $l-breakpoint) and (max-width: $xl-breakpoint) { @content; }
+  }
+  @if $canvas == gt-xl {
+    @media only screen and (min-width: $xl-breakpoint) { @content; }
+  }
+
+
+}
+
+// buttons
+// ====================================================================
+
+
+
+@mixin btn-theme($btn-color,$brdr-color,$txt-color, $hvr-color) {
+  border-color: $brdr-color;
+  background-color: $btn-color;
+  color: $txt-color;
+  &:hover {
+    background-color: $hvr-color;
+
+
+  }
+  &:active {
+    box-shadow: 0 .063em $off-wht, inset 0 0 1.094em darken($btn-color, 40%), inset 0 .063em darken($btn-color, 20%),inset 0 -0.188em darken($btn-color, 20%);
+  }
+}
+@mixin trans($val...) {
+  -webkit-transition: $val;
+  -moz-transition: $val;
+  -o-transition: $val;
+  transition: $val;
+}
+
+// Fluid ratio background images
+// ====================================================================
+/* Calculate fluid ratio based on two dimensions (width/height) */
+@mixin fluid-ratio($large-size, $small-size) {
+  $width-large: nth($large-size, 1);
+  $width-small: nth($small-size, 1);
+  $height-large: nth($large-size, 2);
+  $height-small: nth($small-size, 2);
+  $slope: ($height-large - $height-small) / ($width-large - $width-small);
+  $height: $height-small - $width-small * $slope;
+
+  padding-top: $slope * 100%;
+  height: $height;
+
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+}
